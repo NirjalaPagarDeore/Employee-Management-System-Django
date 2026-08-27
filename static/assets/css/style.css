@@ -1616,3 +1616,26 @@ html[data-theme="dark"] {
   border-top-color: var(--admin-sidebar-border);
   color: var(--admin-sidebar-text);
 }
+.sn-column {
+    width: 50px !important;
+}
+
+.name-column {
+    width: 130px !important;
+}
+
+
+.employee-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.employee-table th:nth-child(1),
+.employee-table td:nth-child(1) {
+    width: 50px;
+}
+
+.employee-table th:nth-child(2),
+.employee-table td:nth-child(2) {
+    width: 130px;
+}

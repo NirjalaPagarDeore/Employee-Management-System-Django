@@ -1,0 +1,271 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+        <div class="container-fluid px-3 px-lg-4 py-4">
+          <div class="page-heading">
+            <div class="page-heading-copy">
+              <span class="page-icon"><i class="bi bi-ui-checks-grid" aria-hidden="true"></i></span>
+              <div>
+                
+                <h1 class="h3 mb-1">Add Employee Details</h1>
+               
+              </div>
+            </div>
+            
+          </div>
+
+          <section class="row g-3">
+            <div class="col-12 col-xl-12">
+             
+<!-- <form class="panel needs-validation" novalidate> -->
+    <form method="POST" class="panel needs-validation">
+
+    {% csrf_token %}
+    <div class="row g-3">
+
+        <!-- Employee ID -->
+        <div class="col-md-6">
+            <label class="form-label" for="employeeId">Employee ID</label>
+            <input class="form-control" id="employeeId" name="employee_id" type="text" required>
+            <div class="invalid-feedback">
+                Employee ID is required.
+            </div>
+        </div>
+
+        <!-- Full Name -->
+        <div class="col-md-6">
+            <label class="form-label" for="employeeName">Full Name</label>
+            <input class="form-control" id="employeeName" name="name" type="text" required>
+            <div class="invalid-feedback">
+                Full name is required.
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-6">
+            <label class="form-label" for="employeeEmail">Email</label>
+            <input class="form-control" id="employeeEmail" type="email" name="email" required>
+            <div class="invalid-feedback">
+                Valid email is required.
+            </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="col-md-6">
+            <label class="form-label" for="employeePhone">Phone Number</label>
+            <input class="form-control" id="employeePhone" type="tel" name="phone"
+                   pattern="[0-9]{10}" required>
+            <div class="invalid-feedback">
+                Enter a valid 10-digit phone number.
+            </div>
+        </div>
+
+        <!-- Gender -->
+        <div class="col-md-6">
+            <label class="form-label" for="employeeGender">Gender</label>
+            <select class="form-select" id="employeeGender" name="gender" required>
+                <option value="">Choose gender</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+            </select>
+            <div class="invalid-feedback">
+                Please select gender.
+            </div>
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="col-md-6">
+            <label class="form-label" for="dateOfBirth">Date of Birth</label>
+            <input class="form-control" id="dateOfBirth" type="date" name="date_of_birth" required>
+            <div class="invalid-feedback">
+                Date of birth is required.
+            </div>
+        </div>
+
+        <!-- Department -->
+        <div class="col-md-6">
+            <label class="form-label" for="department">Department</label>
+            <select class="form-select" id="department" name="department" required>
+                <option value="">Choose department</option>
+                <option>HR</option>
+                <option>IT</option>
+                <option>Finance</option>
+                <option>Marketing</option>
+                <option>Sales</option>
+                <option>Operations</option>
+                <option>Administration</option>
+            </select>
+            <div class="invalid-feedback">
+                Please select a department.
+            </div>
+        </div>
+
+        <!-- Designation -->
+        <div class="col-md-6">
+            <label class="form-label" for="designation">Designation</label>
+            <input class="form-control" id="designation" type="text" name="designation" required>
+            <div class="invalid-feedback">
+                Designation is required.
+            </div>
+        </div>
+
+        <!-- Joining Date -->
+        <div class="col-md-6">
+            <label class="form-label" for="joiningDate">Joining Date</label>
+            <input class="form-control" id="joiningDate" type="date" name="joining_date" required>
+            <div class="invalid-feedback">
+                Joining date is required.
+            </div>
+        </div>
+
+        <!-- Employment Type -->
+        <div class="col-md-6">
+            <label class="form-label" for="employmentType">
+                Employment Type
+            </label>
+            <select class="form-select" id="employmentType" name="employment_type" required>
+                <option value="">Choose employment type</option>
+                <option value="Full Time">Full Time</option>
+                <option value="Part Time">Part Time</option>
+                <option value="Contract">Contract</option>
+                <option value="Intern">Intern</option>
+              
+                <option value="Freelancer">Freelancer</option>
+            </select>
+            <div class="invalid-feedback">
+                Please select employment type.
+            </div>
+        </div>
+
+        <!-- Salary -->
+        <div class="col-md-6">
+            <label class="form-label" for="salary">Salary</label>
+            <input class="form-control" id="salary" type="number" name="salary"
+                   min="1" required>
+            <div class="invalid-feedback">
+                Enter a valid salary.
+            </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="col-md-6">
+            <label class="form-label" for="experience">
+                Experience (Years)
+            </label>
+            <input class="form-control" id="experience" type="number" name="experience"
+                   min="0" step="0.1" required>
+            <div class="invalid-feedback">
+                Enter valid experience.
+            </div>
+        </div>
+
+        <!-- Manager -->
+        <div class="col-md-6">
+            <label class="form-label" for="manager">
+                Reporting Manager
+            </label>
+            <input class="form-control" id="manager" type="text" name="manager" required>
+            <div class="invalid-feedback">
+                Reporting manager is required.
+            </div>
+        </div>
+
+        <!-- Address -->
+        <div class="col-12">
+            <label class="form-label" for="address">Address</label>
+            <textarea class="form-control" id="address" name="address"
+                      rows="3" required></textarea>
+            <div class="invalid-feedback">
+                Address is required.
+            </div>
+        </div>
+
+        <!-- City -->
+        <div class="col-md-4">
+            <label class="form-label" for="city">City</label>
+            <input class="form-control" id="city" type="text" name="city" required>
+            <div class="invalid-feedback">
+                City is required.
+            </div>
+        </div>
+
+        <!-- State -->
+        <div class="col-md-4">
+            <label class="form-label" for="state">State</label>
+            <input class="form-control" id="state" type="text" name="state" required>
+            <div class="invalid-feedback">
+                State is required.
+            </div>
+        </div>
+
+        <!-- PIN Code -->
+        <div class="col-md-4">
+            <label class="form-label" for="pincode">PIN Code</label>
+            <input class="form-control" id="pincode" type="text" name="pincode"
+                   pattern="[0-9]{6}" required>
+            <div class="invalid-feedback">
+                Enter a valid 6-digit PIN code.
+            </div>
+        </div>
+
+        <!-- Employee Status -->
+        <div class="col-md-6">
+            <label class="form-label" for="status">Employee Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="">Choose status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+                <option value="On Leave">On Leave</option>
+                <option value="Resigned">Resigned</option>
+                <option value="Terminated">Terminated</option>
+            </select>
+            <div class="invalid-feedback">
+                Please select employee status.
+            </div>
+        </div>
+
+        <!-- Emergency Contact -->
+        <div class="col-md-6">
+            <label class="form-label" for="emergencyContact">
+                Emergency Contact
+            </label>
+            <input class="form-control" id="emergencyContact"
+                   type="tel" name="emergency_contact" pattern="[0-9]{10}" required>
+            <div class="invalid-feedback">
+                Enter a valid emergency contact number.
+            </div>
+        </div>
+
+        <!-- Message / Additional Information -->
+        <div class="col-12">
+            <label class="form-label" for="message">
+                Additional Information
+            </label>
+            <textarea class="form-control" name="message" id="message"
+                      rows="5"></textarea>
+        </div>
+
+    </div>
+
+    <!-- Submit Button -->
+    <div class="d-flex justify-content-end mt-4">
+        <button class="btn btn-primary" type="submit">
+            <i class="bi bi-person-plus" aria-hidden="true"></i>
+            Add Employee
+        </button>
+    </div>
+
+</form>
+
+
+            </div>
+
+          </section>
+        </div>
+      
+
+      {% endblock %}
