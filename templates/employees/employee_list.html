@@ -74,12 +74,16 @@
                   </td>
 
                 <td class="text-end">
-                  <button class="btn btn-light btn-sm" type="button">View</button>
-                      <a href="#" class="btn btn-sm btn-primary">
+                  
+                   <a href="{% url 'view_employee' employee.id %}" class="btn btn-sm btn-light">
+                    View
+                </a>
+                      <a href="{% url 'update_employee' employee.id %}" class="btn btn-sm btn-primary">
                     Edit
                 </a>
 
-                <a href="#" class="btn btn-sm btn-danger">
+
+                <a href="{% url 'delete_employee' employee.id %}" onclick="return confirm('Are you sure you want to delete this employee?');" class="btn btn-sm btn-danger">
                     Delete
                 </a>
                 </td>

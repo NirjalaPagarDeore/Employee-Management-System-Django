@@ -48,3 +48,62 @@ def employee_list(request):
         "employees/employee_list.html",
         {"employees": employees}
     )
+
+
+######  Delete Employee
+def delete_employee(request, id):
+
+    employee = Employee.objects.get(id=id)
+
+    employee.delete()
+
+    return redirect("employee_list")
+
+######  Update Employee
+def update_employee(request, id):
+
+    employee = Employee.objects.get(id=id)
+
+    if request.method == "POST":
+
+        employee.employee_id = request.POST["employee_id"]
+        employee.name = request.POST["name"]
+        employee.email = request.POST["email"]
+        employee.phone = request.POST["phone"]
+        employee.gender = request.POST["gender"]
+        employee.date_of_birth = request.POST["date_of_birth"]
+        employee.department = request.POST["department"]
+        employee.designation = request.POST["designation"]
+        employee.joining_date = request.POST["joining_date"]
+        employee.employment_type = request.POST["employment_type"]
+        employee.salary = request.POST["salary"]
+        employee.experience = request.POST["experience"]
+        employee.manager = request.POST["manager"]
+        employee.address = request.POST["address"]
+        employee.city = request.POST["city"]
+        employee.state = request.POST["state"]
+        employee.pincode = request.POST["pincode"]
+        employee.status = request.POST["status"]
+        employee.emergency_contact = request.POST["emergency_contact"]
+        employee.message = request.POST.get("message", "")
+
+        employee.save()
+
+        return redirect("employee_list")
+
+    return render(
+        request,
+        "employees/update_employee.html",
+        {"employee": employee}
+    )
+
+#####View employee details
+def view_employee(request, id):
+
+    employee = Employee.objects.get(id=id)
+
+    return render(
+        request,
+        "employees/view_employee.html",
+        {"employee": employee}
+    )

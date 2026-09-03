@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="mb-1">Employee Details</h4>
+            <p class="text-muted mb-0">
+                Complete information about {{ employee.name }}
+            </p>
+        </div>
+
+        <a href="{% url 'employee_list' %}" class="btn btn-secondary">
+            Back
+        </a>
+    </div>
+
+
+    <!-- Personal Information -->
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <h5 class="mb-0">Personal Information</h5>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <strong>Employee ID</strong>
+                    <p>{{ employee.employee_id }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Name</strong>
+                    <p>{{ employee.name }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Email</strong>
+                    <p>{{ employee.email }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Phone</strong>
+                    <p>{{ employee.phone }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Gender</strong>
+                    <p>{{ employee.gender }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Date of Birth</strong>
+                    <p>{{ employee.date_of_birth|date:"d-m-Y" }}</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Job Information -->
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <h5 class="mb-0">Job Information</h5>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <strong>Department</strong>
+                    <p>{{ employee.department }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Designation</strong>
+                    <p>{{ employee.designation }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Joining Date</strong>
+                    <p>{{ employee.joining_date|date:"d-m-Y" }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Employment Type</strong>
+                    <p>{{ employee.employment_type }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Salary</strong>
+                    <p>{{ employee.salary }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Experience</strong>
+                    <p>{{ employee.experience }} years</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Reporting Manager</strong>
+                    <p>{{ employee.manager }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Status</strong>
+                    <p>{{ employee.status }}</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Address Information -->
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <h5 class="mb-0">Address Information</h5>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-12 mb-3">
+                    <strong>Address</strong>
+                    <p>{{ employee.address }}</p>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <strong>City</strong>
+                    <p>{{ employee.city }}</p>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <strong>State</strong>
+                    <p>{{ employee.state }}</p>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <strong>Pincode</strong>
+                    <p>{{ employee.pincode }}</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Emergency Contact -->
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <h5 class="mb-0">Emergency Contact</h5>
+        </div>
+
+        <div class="card-body">
+
+            <strong>Emergency Contact</strong>
+            <p>{{ employee.emergency_contact }}</p>
+
+        </div>
+    </div>
+
+
+    <!-- Message -->
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <h5 class="mb-0">Additional Message</h5>
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                {{ employee.message|default:"No additional message" }}
+            </p>
+
+        </div>
+    </div>
+
+
+    <!-- Actions -->
+    <div class="mb-4">
+
+        <a href="{% url 'update_employee' employee.id %}"
+           class="btn btn-primary">
+            Edit Employee
+        </a>
+
+        <a href="{% url 'employee_list' %}"
+           class="btn btn-secondary">
+            Back to Employee List
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}  
