@@ -1,6 +1,6 @@
 from django import forms
 from .models import Employee
-
+from .models import Attendance
 
 class EmployeeForm(forms.ModelForm):
 
@@ -115,4 +115,54 @@ class EmployeeForm(forms.ModelForm):
                 "id": "message",
                 "rows": 5
             }),
+        }
+
+
+class AttendanceForm(forms.ModelForm):
+
+    class Meta:
+        model = Attendance
+
+        fields = [
+            "employee",
+            "date",
+            "status",
+            "check_in",
+            "check_out",
+        ]
+
+        widgets = {
+
+            "employee": forms.Select(
+                attrs={
+                    "class": "form-select"
+                }
+            ),
+
+            "date": forms.DateInput(
+                attrs={
+                    "class": "form-control",
+                    "type": "date"
+                }
+            ),
+
+            "status": forms.Select(
+                attrs={
+                    "class": "form-select"
+                }
+            ),
+
+            "check_in": forms.TimeInput(
+                attrs={
+                    "class": "form-control",
+                    "type": "time"
+                }
+            ),
+
+            "check_out": forms.TimeInput(
+                attrs={
+                    "class": "form-control",
+                    "type": "time"
+                }
+            ),
         }

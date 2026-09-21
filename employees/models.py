@@ -43,7 +43,8 @@ class Employee(models.Model):
 
     date_of_birth = models.DateField()
 
-    department = models.CharField(max_length=100)
+    department = models.ForeignKey('Department', on_delete=models.SET_NULL, null=True, blank=True
+)
 
     designation = models.CharField(max_length=100)
 
@@ -90,3 +91,68 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.name
+
+
+   ####   Department model
+class Department(models.Model):
+    department_id = models.CharField(max_length=20, unique=True)
+    department_name = models.CharField(max_length=20, unique=True)
+    description = models.TextField(blank=True)
+    status = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.department_name
+
+class Leave(models.Model):
+    
+    employee = models.ForeignKey(
+        Employee,
+        on_delete=models.CASCADE
+    )
+    reason = models.TextField(blank=True)
+    from_date = models.DateField() 
+    to_date = models.DateField()
+    manager = models.CharField(max_length=20)
+    leave_type = models.CharField(max_length=30)
+     # 0 = Pending
+    # 1 = Approved
+    status = models.BooleanField(default=False)
+
+    def __str__(self):
+     return str(self.employee_id)
+
+
+class Attendance(models.Model):
+
+    employee = models.ForeignKey(
+        Employee,
+        on_delete=models.CASCADE
+    )
+
+    date = models.DateField()
+
+    STATUS_CHOICES = (
+        ("P", "Present"),
+        ("A", "Absent"),
+        ("H", "Half Day"),
+    )
+
+    status = models.CharField(
+        max_length=1,
+        choices=STATUS_CHOICES
+    )
+
+    check_in = models.TimeField(
+        null=True,
+        blank=True
+    )
+
+    check_out = models.TimeField(
+        null=True,
+        blank=True
+    )
+
+    def __str__(self):
+        return f"{self.employee} - {self.date}"
+
+

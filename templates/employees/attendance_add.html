@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card">
+
+        <div class="card-header">
+            <h4>Mark Attendance</h4>
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <!-- Employee -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Employee
+                    </label>
+
+                    {{ form.employee }}
+                </div>
+
+
+                <!-- Date -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Date
+                    </label>
+
+                    {{ form.date }}
+                </div>
+
+
+                <!-- Status -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Status
+                    </label>
+
+                    {{ form.status }}
+                </div>
+
+
+                <!-- Check In -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Check In
+                    </label>
+
+                    {{ form.check_in }}
+                </div>
+
+
+                <!-- Check Out -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Check Out
+                    </label>
+
+                    {{ form.check_out }}
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-success">
+                    Save Attendance
+                </button>
+
+
+                <a
+                    href="{% url 'attendance_list' %}"
+                    class="btn btn-secondary">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

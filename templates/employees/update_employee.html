@@ -10,7 +10,7 @@
               <span class="page-icon"><i class="bi bi-ui-checks-grid" aria-hidden="true"></i></span>
               <div>
                 
-                <h1 class="h3 mb-1">Add Employee Details</h1>
+                <h1 class="h3 mb-1">Update Employee Details</h1>
                
               </div>
             </div>
@@ -95,13 +95,19 @@
             <label class="form-label" for="department">Department</label>
             <select class="form-select" id="department" name="department" value="{{ employee.department }}" required>
                 <option value="">Choose department</option>
-                <option value="HR"{% if employee.department == "HR" %}selected{% endif %}>HR</option>
-                <option value="IT"{% if employee.department == "IT" %}selected{% endif %}>IT</option>
-                <option value="Finance"{% if employee.department == "Finance" %}selected{% endif %}>Finance</option>
-                <option value="Marketing"{% if employee.department == "Marketing" %}selected{% endif %}>Marketing</option>
-                <option value="Sales"{% if employee.department == "Sales" %}selected{% endif %}>Sales</option>
-                <option value="Operations"{% if employee.department == "Operations" %}selected{% endif %}>Operations</option>
-                <option value="Administration"{% if employee.department == "Administration" %}selected{% endif %}>Administration</option>
+
+             {% for department in departments %}
+
+            <option value="{{ department.id }}"
+                {% if employee.department_id == department.id %}
+                    selected
+                {% endif %}>
+                
+                {{ department.department_name }}
+
+            </option>
+
+             {% endfor %}
             </select>
             <div class="invalid-feedback">
                 Please select a department.
@@ -179,7 +185,7 @@
         </div>
 
         <!-- Address -->
-        <div class="col-12">
+        <div class="col-md-6">
             <label class="form-label" for="address">Address</label>
             <textarea class="form-control" id="address" name="address" 
                       rows="3" required>{{ employee.address }}</textarea>
@@ -259,7 +265,7 @@
     <div class="d-flex justify-content-end mt-4">
         <button class="btn btn-primary" type="submit">
             <i class="bi bi-person-plus" aria-hidden="true"></i>
-            Add Employee
+            Update Employee
         </button>
     </div>
 

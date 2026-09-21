@@ -1,0 +1,93 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+        <div class="container-fluid px-3 px-lg-4 py-4">
+          <div class="page-heading">
+            <div class="page-heading-copy">
+              <span class="page-icon"><i class="bi bi-ui-checks-grid" aria-hidden="true"></i></span>
+              <div>
+                
+                <h4 class=" mb-1"><strong> Department Details</strong></h4>
+               
+              </div>
+            </div>
+            
+          </div>
+
+          <section class="row g-3">
+            <div class="col-12 col-xl-12">
+             
+<!-- <form class="panel needs-validation" novalidate> -->
+    <form method="POST" class="panel needs-validation">
+
+    {% csrf_token %}
+    <div class="row g-3">
+
+
+
+        <!-- Full Name -->
+        <div class="col-md-6">
+            <label class="form-label" for="department">Department Name</label>
+            <input class="form-control" id="department" name="department_name" value="{{ department.department_name }}" type="text" required>
+            <div class="invalid-feedback">
+                Full name is required.
+            </div>
+        </div>
+
+        <!-- Code -->
+        <div class="col-md-6">
+            <label class="form-label" for="department_id">Department Code</label>
+            <input class="form-control" id="department_id" type="text" name="department_id" value="{{ department.department_id }}" required>
+           
+        </div>
+
+      
+
+        <!-- Employee Status -->
+        <div class="col-md-6">
+            <label class="form-label" for="status">Department Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="">Choose status</option>
+                <option value="Active" {% if department.status == "Active" %}selected {% endif %}>Active</option>
+                <option value="Inactive" {% if department.status == "Inactive" %}selected{% endif %}>Inactive</option>
+              
+            </select>
+            <div class="invalid-feedback">
+                Please select employee status.
+            </div>
+        </div>
+
+      
+
+        <!-- description / Additional Information -->
+        <div class="col-md-6">
+            <label class="form-label" for="description">
+               Description
+            </label>
+            <textarea class="form-control" name="description"  id="description"
+                      rows="5">{{ department.description }}</textarea>
+        </div>
+
+    </div>
+
+    <!-- Submit Button -->
+    <div class="d-flex justify-content-end mt-4">
+        <button class="btn btn-primary" type="submit">
+            <i class="bi bi-person-plus" aria-hidden="true"></i>
+            Update Employee
+        </button>
+    </div>
+
+</form>
+
+
+            </div>
+
+          </section>
+        </div>
+      
+
+      {% endblock %}

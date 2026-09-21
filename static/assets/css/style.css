@@ -1639,3 +1639,57 @@ html[data-theme="dark"] {
 .employee-table td:nth-child(2) {
     width: 130px;
 }
+
+
+/* Common Sidebar Dropdown */
+
+.sidebar-dropdown {
+    width: 100%;
+}
+
+.dropdown-toggle-custom {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.dropdown-arrow {
+    margin-left: auto;
+    font-size: 11px;
+    transition: 0.3s;
+}
+
+.dropdown-items {
+    display: none;
+    margin-left: 48px;
+    padding: 4px 0;
+}
+
+.sidebar-dropdown.active .dropdown-items {
+    display: block;
+}
+
+.sidebar-dropdown.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-items a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    text-decoration: none;
+    color: #526075;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+.dropdown-items a:hover {
+    background: #f1f5ff;
+    color: #3978ff;
+}
+
+.dropdown-items i {
+    color: #3978ff;
+}

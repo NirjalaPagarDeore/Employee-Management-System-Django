@@ -1,3 +1,111 @@
   {% load static %}
   <script src="../assets/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+
+const searchInput = document.getElementById("employeeSearch");
+const tableBody = document.getElementById("employeeTableBody");
+
+searchInput.addEventListener("input", function () {
+
+    const search = this.value;
+
+    fetch(`/search_employee/?search=${encodeURIComponent(search)}`)
+        .then(response => response.json())
+        .then(data => {
+
+            tableBody.innerHTML = "";
+
+            data.forEach((employee, index) => {
+
+                tableBody.innerHTML += `
+                    <tr>
+
+                        <td>${index + 1}</td>
+
+                        <td>
+                            <strong>${employee.name}</strong>
+                            <br>
+                            <small class="text-muted">
+                                ${employee.employee_id}
+                            </small>
+                        </td>
+
+                        <td>
+                            ${employee.phone}
+                            <br>
+                            <small class="text-muted">
+                                ${employee.email}
+                            </small>
+                        </td>
+
+                        <td>${employee.employment_type}</td>
+
+                        <td>${employee.department}</td>
+
+                        <td>${employee.designation}</td>
+
+                        <td>${employee.manager}</td>
+
+                        <td class="text-end">
+
+                            <a href="/view_employee/${employee.id}/"
+                               class="btn btn-sm btn-light">
+                                View
+                            </a>
+
+                            <a href="/update_employee/${employee.id}/"
+                               class="btn btn-sm btn-primary">
+                                Edit
+                            </a>
+
+                            <a href="/delete_employee/${employee.id}/"
+                               class="btn btn-sm btn-danger"
+                               onclick="return confirm('Are you sure you want to delete this employee?');">
+                                Delete
+                            </a>
+
+                        </td>
+
+                    </tr>
+                `;
+
+            });
+
+            if (data.length === 0) {
+
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="text-center">
+                            No employee found
+                        </td>
+                    </tr>
+                `;
+
+            }
+
+        });
+
+});
+
+</script>
+
+<script>
+
+document.querySelectorAll(".dropdown-toggle-custom").forEach(function(dropdown) {
+
+    dropdown.addEventListener("click", function(e) {
+
+        e.preventDefault();
+
+        const parent = this.parentElement;
+
+        parent.classList.toggle("active");
+
+    });
+
+});
+
+</script>

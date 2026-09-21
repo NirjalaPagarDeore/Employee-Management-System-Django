@@ -1,0 +1,125 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+        <div class="container-fluid px-3 px-lg-4 py-4">
+          <div class="page-heading">
+            <div class="page-heading-copy">
+              <span class="page-icon"><i class="bi bi-ui-checks-grid" aria-hidden="true"></i></span>
+              <div>
+                
+                <h1 class="h3 mb-1">Apply Leave</h1>
+               
+              </div>
+            </div>
+            
+          </div>
+
+          <section class="row g-3">
+            <div class="col-12 col-xl-12">
+             
+<!-- <form class="panel needs-validation" novalidate> -->
+    <form method="POST" class="panel needs-validation">
+
+    {% csrf_token %}
+    <div class="row g-3">
+
+       
+
+        <!-- Full Name -->
+        <div class="col-md-6">
+            <label class="form-label" for="employeeName">Employee Name</label>
+           <select class="form-select" id="employeeName" name="employee_id" required>
+    <option value="">Select Employee</option>
+
+    {% for employee in employees %}
+        <option value="{{ employee.id }}">
+            {{ employee.name }} - {{ employee.employee_id }}
+        </option>
+    {% endfor %}
+</select>
+        </div>
+
+
+        <!-- Reason -->
+        <div class="col-md-6">
+            <label class="form-label" for="reason">Reason</label>
+           <textarea class="form-control" id="reason" name="reason" required></textarea>
+            <div class="invalid-feedback">
+                reason is required.
+            </div>
+        </div>
+
+        <!-- from Date -->
+        <div class="col-md-6">
+            <label class="form-label" for="fromDate">From Date</label>
+            <input class="form-control" id="fromDate" type="date" name="from_date" required>
+            <div class="invalid-feedback">
+                Joining date is required.
+            </div>
+        </div>
+
+         <!-- Joining Date -->
+        <div class="col-md-6">
+            <label class="form-label" for="toDate">To Date</label>
+            <input class="form-control" id="toDate" type="date" name="to_date" required>
+            <div class="invalid-feedback">
+                Joining date is required.
+            </div>
+        </div>
+
+
+        <!-- Manager -->
+        <div class="col-md-6">
+            <label class="form-label" for="manager">
+                Reporting Manager
+            </label>
+            <input class="form-control" id="manager" type="text" name="manager" required>
+            <div class="invalid-feedback">
+                Reporting manager is required.
+            </div>
+        </div>
+
+       
+
+        <!-- Employee leave -->
+        <div class="col-md-6">
+            <label class="form-label" for="leave_type"> Leave Type</label>
+            <select class="form-select" id="leave_type" name="leave_type" required>
+                <option value="">Select Type</option>
+                <option value="Casual Leave">Casual Leave</option>
+                <option value="Sick Leave">Sick Leave</option>
+                <option value="Earned Leave">Earned Leave</option>
+                <option value="Emergency Leave">Emergency Leave</option>
+                <option value="Other">Other</option>
+            </select>
+            <div class="invalid-feedback">
+                Please select employee type.
+            </div>
+        </div>
+
+      
+   
+
+    </div>
+
+    <!-- Submit Button -->
+    <div class="d-flex justify-content-end mt-4">
+        <button class="btn btn-primary" type="submit">
+            <i class="bi bi-person-plus" aria-hidden="true"></i>
+            Apply Leave
+        </button>
+    </div>
+
+</form>
+
+
+            </div>
+
+          </section>
+        </div>
+      
+
+      {% endblock %}

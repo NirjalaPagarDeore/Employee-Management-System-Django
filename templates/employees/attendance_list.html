@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between mb-3">
+
+        <h3>Attendance List</h3>
+
+        <a
+            href="{% url 'attendance_add' %}"
+            class="btn btn-success">
+            Mark Attendance
+        </a>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <table class="table table-bordered">
+
+                <thead>
+
+                    <tr>
+                        <th>SN</th>
+                        <th>Employee</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for attendance in attendances %}
+
+                    <tr>
+
+                        <!-- Serial Number -->
+                        <td>
+                            {{ forloop.counter }}
+                        </td>
+
+
+                        <!-- Employee -->
+                        <td>
+                            {{ attendance.employee }}
+                        </td>
+
+
+                        <!-- Date -->
+                        <td>
+                            {{ attendance.date }}
+                        </td>
+
+
+                        <!-- Status -->
+                        <td>
+
+                            {% if attendance.status == "P" %}
+
+                                <span class="badge bg-success">
+                                    Present
+                                </span>
+
+                            {% elif attendance.status == "A" %}
+
+                                <span class="badge bg-danger">
+                                    Absent
+                                </span>
+
+                            {% elif attendance.status == "H" %}
+
+                                <span class="badge bg-warning">
+                                    Half Day
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Check In -->
+                        <td>
+                            {{ attendance.check_in|default:"-" }}
+                        </td>
+
+
+                        <!-- Check Out -->
+                        <td>
+                            {{ attendance.check_out|default:"-" }}
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="text-center">
+
+                            No attendance records found.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
