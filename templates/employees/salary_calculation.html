@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h3 class="mb-4">
+        Employee Salary Calculation
+    </h3>
+
+
+    <!-- FILTER -->
+    <div class="card mb-4">
+
+        <div class="card-body">
+
+            <form method="GET">
+
+                <div class="row">
+
+                    <!-- Employee -->
+                    <div class="col-md-4">
+
+                        <label class="form-label">
+                            Employee
+                        </label>
+
+                        <select
+                            name="employee"
+                            class="form-select"
+                            required>
+
+                            <option value="">
+                                Select Employee
+                            </option>
+
+                            {% for employee in employees %}
+
+                            <option
+                                value="{{ employee.id }}"
+                                {% if selected_employee == employee.id|stringformat:"s" %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ employee }}
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Month -->
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+                            Month
+                        </label>
+
+                        <select
+                            name="month"
+                            class="form-select"
+                            required>
+
+                            <option value="">
+                                Select Month
+                            </option>
+
+                            {% for number,name in months %}
+
+                            <option value="{{ number }}">
+                                {{ name }}
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Year -->
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+                            Year
+                        </label>
+
+                        <select
+                            name="year"
+                            class="form-select"
+                            required>
+
+                            <option value="">
+                                Select Year
+                            </option>
+
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Button -->
+                    <div class="col-md-2 d-flex align-items-end">
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100">
+
+                            Generate
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    {% if salary_data %}
+
+    <!-- SALARY RESULT -->
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h5>
+                Salary Details
+            </h5>
+
+        </div>
+
+
+        <div class="card-body">
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>Employee</th>
+                    <td>
+                        {{ salary_data.employee }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Monthly Salary</th>
+                    <td>
+                        ₹{{ salary_data.monthly_salary|floatformat:2 }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Total Days</th>
+                    <td>
+                        {{ salary_data.total_days }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Present Days</th>
+                    <td>
+                        {{ salary_data.present_days }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Absent Days</th>
+                    <td>
+                        {{ salary_data.absent_days }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Half Days</th>
+                    <td>
+                        {{ salary_data.half_days }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Leave Days</th>
+                    <td>
+                        {{ salary_data.leave_days }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Daily Salary</th>
+                    <td>
+                        ₹{{ salary_data.daily_salary|floatformat:2 }}
+                    </td>
+                </tr>
+
+                <tr class="table-success">
+
+                    <th>
+                        Final Salary
+                    </th>
+
+                    <td>
+                        <strong>
+                            ₹{{ salary_data.final_salary|floatformat:2 }}
+                        </strong>
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

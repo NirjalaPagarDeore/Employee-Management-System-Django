@@ -5,10 +5,55 @@ from .models import Leave
 from django.http import JsonResponse
 from .models import Attendance
 from .forms import AttendanceForm
+from calendar import monthrange
+from decimal import Decimal
+import calendar
+from django.utils import timezone
+from django.contrib.auth import logout  
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def dashboard(request):
-    return render(request, "employees/dashboard.html")
+
+    # Get today's date
+    today = timezone.localdate()
+
+    # Count total employees
+    total_employees = Employee.objects.count()
+
+    # Count employees present today
+    present_today = Attendance.objects.filter(
+        date=today,
+        status="P"
+    ).count()
+
+    # Count employees absent today
+    absent_today = Attendance.objects.filter(
+        date=today,
+        status="A"
+    ).count()
+
+    # Count pending leave requests
+    pending_leaves = Leave.objects.filter(
+        status=False
+    ).count()
+
+         # Get latest 5 leave requests
+    recent_leaves = Leave.objects.select_related(
+        "employee"
+    ).order_by("-id")[:5]
+
+    return render(
+        request,
+        "employees/dashboard.html",
+        {
+            "total_employees": total_employees,
+            "present_today": present_today,
+            "absent_today": absent_today,
+            "pending_leaves": pending_leaves,
+             "recent_leaves": recent_leaves,
+        }
+    )
 
 def forms(request):
     return render(request, "employees/forms.html")
@@ -312,3 +357,176 @@ def attendance_list(request):
             "attendances": attendances
         }
     )
+
+
+
+def salary_calculation(request):
+
+    employees = Employee.objects.all()
+
+    selected_employee = request.GET.get("employee")
+    selected_month = request.GET.get("month")
+    selected_year = request.GET.get("year")
+
+    salary_data = None
+
+    if selected_employee and selected_month and selected_year:
+
+        # Convert values to integers
+        employee_id = int(selected_employee)
+        month = int(selected_month)
+        year = int(selected_year)
+
+        # Get selected employee
+        employee = Employee.objects.get(
+            id=employee_id
+        )
+
+        # Get number of days in selected month
+        total_days = monthrange(year, month)[1]
+
+        # Get attendance records
+        attendances = Attendance.objects.filter(
+            employee=employee,
+            date__year=year,
+            date__month=month
+        )
+
+        # Count Present
+        present_days = attendances.filter(
+            status="P"
+        ).count()
+
+        # Count Absent
+        absent_days = attendances.filter(
+            status="A"
+        ).count()
+
+        # Count Half Day
+        half_days = attendances.filter(
+            status="H"
+        ).count()
+
+        # Get approved leaves
+        approved_leaves = Leave.objects.filter(
+            employee=employee,
+            status=True,
+            from_date__year=year,
+            from_date__month=month
+        )
+
+        leave_days = 0
+
+        for leave in approved_leaves:
+
+            leave_days += (
+                leave.to_date - leave.from_date
+            ).days + 1
+
+        # Employee monthly salary
+        monthly_salary = Decimal(
+            str(employee.salary)
+        )
+
+        # Daily salary
+        daily_salary = (
+            monthly_salary / Decimal(total_days)
+        )
+
+        # Salary for present days
+        present_salary = (
+            daily_salary * present_days
+        )
+
+        # Half-day salary
+        half_day_salary = (
+            daily_salary
+            * Decimal("0.5")
+            * half_days
+        )
+
+        # Final salary
+        final_salary = (
+            present_salary
+            + half_day_salary
+        )
+
+        salary_data = {
+            "employee": employee,
+            "monthly_salary": monthly_salary,
+            "total_days": total_days,
+            "present_days": present_days,
+            "absent_days": absent_days,
+            "half_days": half_days,
+            "leave_days": leave_days,
+            "daily_salary": daily_salary,
+            "final_salary": final_salary,
+        }
+
+    return render(
+        request,
+        "employees/salary_calculation.html",
+        {
+            "employees": employees,
+            "salary_data": salary_data,
+            "selected_employee": selected_employee,
+            "selected_month": selected_month,
+            "selected_year": selected_year,
+            "months": [
+            (i, calendar.month_name[i])
+            for i in range(1, 13)
+        ],
+        }
+    )
+
+###Login
+def user_login(request):
+
+    # Check if login form was submitted
+    if request.method == "POST":
+
+        # Get email and password from the form
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        # Check username/password with Django
+        user = authenticate(
+            request,
+            username=email,
+            password=password
+        )
+
+        # If login details are correct
+        if user is not None:
+
+            # Create login session
+            login(request, user)
+
+            # Open dashboard
+            return redirect("dashboard")
+
+        else:
+
+            # Login failed
+            return render(
+                request,
+                "employees/login.html",
+                {
+                    "error": "Invalid email or password"
+                }
+            )
+
+    return render(request, "employees/login.html")
+
+
+
+###Logout
+def user_logout(request):
+
+    # Logout the currently logged-in user
+    logout(request)
+
+    # Redirect user to login page
+    return redirect("login")
+
+

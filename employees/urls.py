@@ -24,16 +24,12 @@ urlpatterns = [
       path("leave_list/", views.leave_list, name="leave_list"),
 
       path("approve-leave/<int:id>/", views.approve_leave,name="approve_leave"),
-      path(
-        "attendance/add/",
-        views.attendance_add,
-        name="attendance_add"
-    ),
+      path("add/", views.attendance_add, name="attendance_add"),
 
-    path(
-        "attendance/",
-        views.attendance_list,
-        name="attendance_list"
-    ),
-
+         path("/", views.attendance_list, name="attendance_list" ),
+         path( "salary/",views.salary_calculation, name="salary_calculation"),
+        ###Login
+        path("login/", views.user_login, name="login"),
+      ###Logout path
+      path("logout/",views.user_logout,name="logout"),
 ]

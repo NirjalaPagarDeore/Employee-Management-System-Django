@@ -20,56 +20,44 @@
             <div class="col-12 col-sm-6 col-xl-3">
               <article class="metric-card metric-primary">
                 <div class="metric-top">
-                  <span class="metric-label">Revenue</span>
-                  <span class="metric-icon"><i class="bi bi-currency-dollar" aria-hidden="true"></i></span>
+                  <span class="metric-label">Total employees</span>
+                  <span class="metric-icon"><i class="bi bi-people" aria-hidden="true"></i></span>
                 </div>
-                <div class="metric-value">$48,240</div>
-                <div class="metric-meta">
-                  <span class="text-success">+12.5%</span>
-                  <span>from last month</span>
-                </div>
+                <div class="metric-value">{{ total_employees }}</div>
+                
               </article>
             </div>
 
             <div class="col-12 col-sm-6 col-xl-3">
               <article class="metric-card metric-success">
                 <div class="metric-top">
-                  <span class="metric-label">Orders</span>
-                  <span class="metric-icon"><i class="bi bi-bag-check" aria-hidden="true"></i></span>
+                  <span class="metric-label">Present Today</span>
+                  <span class="metric-icon"><i class="bi bi-person-check" aria-hidden="true"></i></span>
                 </div>
-                <div class="metric-value">1,284</div>
-                <div class="metric-meta">
-                  <span class="text-success">+8.2%</span>
-                  <span>new orders</span>
-                </div>
+                <div class="metric-value">{{ present_today }}</div>
+            
               </article>
             </div>
 
             <div class="col-12 col-sm-6 col-xl-3">
               <article class="metric-card metric-warning">
                 <div class="metric-top">
-                  <span class="metric-label">Customers</span>
-                  <span class="metric-icon"><i class="bi bi-people" aria-hidden="true"></i></span>
+                  <span class="metric-label">Absent Today</span>
+                  <span class="metric-icon"><i class="bi bi-person-x" aria-hidden="true"></i></span>
                 </div>
-                <div class="metric-value">8,742</div>
-                <div class="metric-meta">
-                  <span class="text-success">+5.1%</span>
-                  <span>active users</span>
-                </div>
+                <div class="metric-value">{{ absent_today }}</div>
+               
               </article>
             </div>
 
             <div class="col-12 col-sm-6 col-xl-3">
               <article class="metric-card metric-danger">
                 <div class="metric-top">
-                  <span class="metric-label">Tickets</span>
-                  <span class="metric-icon"><i class="bi bi-life-preserver" aria-hidden="true"></i></span>
+                  <span class="metric-label">Pending Leaves</span>
+                  <span class="metric-icon"><i class="bi bi-hourglass-split" aria-hidden="true"></i></span>
                 </div>
-                <div class="metric-value">36</div>
-                <div class="metric-meta">
-                  <span class="text-danger">3 urgent</span>
-                  <span>need review</span>
-                </div>
+                <div class="metric-value">{{ pending_leaves }}</div>
+               
               </article>
             </div>
           </section>
@@ -117,97 +105,82 @@
           <section class="panel mt-3">
             <div class="panel-header">
               <div>
-                <h2 class="h5 mb-1 section-title"><i class="bi bi-people" aria-hidden="true"></i><span>Recent Users</span></h2>
-                <p class="text-muted mb-0">Latest account activity across the workspace.</p>
-              </div>
-              <a class="btn btn-outline-secondary btn-sm" href="users.html">Manage Users</a>
-            </div>
+                <h2 class="h5 mb-1 section-title"><i class="bi bi-people" aria-hidden="true"></i><span>Leave</span></h2>
+              
+           
             <div class="table-responsive">
-              <table class="table align-middle mb-0">
-                <thead><tr><th scope="col">User</th><th scope="col">Role</th><th scope="col">Team</th><th scope="col">Status</th><th scope="col">Joined</th><th scope="col" class="text-end">Action</th></tr></thead>
-                <tbody>
+               <table class="table align-middle mb-0 employee-table" id="ordersTable" data-searchable-table>
+                <thead>
                   <tr>
-                    <td>
-                      <div class="d-flex align-items-center gap-2">
-                        <img class="avatar-img avatar-sm" src="{% static 'assets/images/avatar/avatar-1.jpg ' %}" alt="Sarah Ahmed">
-                        <div>
-                          <p class="fw-semibold mb-0">Sarah Ahmed</p>
-                          <p class="text-muted small mb-0">sarah@example.com</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>Admin</td>
-                    <td>Operations</td>
-                    <td><span class="badge text-bg-success">Active</span></td>
-                    <td>Jan 12, 2026</td>
-                    <td class="text-end"><a class="btn btn-light btn-sm" href="user-details.html">View</a></td>
+                  <th>SN</th>
+                  <th>Name</th>
+                    <th>Leave Type</th>
+                     
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Approve Status</th>
+                    <th class="text-end">Action</th>
+                     
                   </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex align-items-center gap-2">
-                        <img class="avatar-img avatar-sm" src="{% static 'assets/images/avatar/avatar-2.jpg' %}" alt="Rafi Khan">
-                        <div>
-                          <p class="fw-semibold mb-0">Rafi Khan</p>
-                          <p class="text-muted small mb-0">rafi@example.com</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>Manager</td>
-                    <td>Sales</td>
-                    <td><span class="badge text-bg-success">Active</span></td>
-                    <td>Feb 03, 2026</td>
-                    <td class="text-end"><a class="btn btn-light btn-sm" href="user-details.html">View</a></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex align-items-center gap-2">
-                        <img class="avatar-img avatar-sm" src="{% static 'assets/images/avatar/avatar-3.jpg' %}" alt="Nadia Islam">
-                        <div>
-                          <p class="fw-semibold mb-0">Nadia Islam</p>
-                          <p class="text-muted small mb-0">nadia@example.com</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>Editor</td>
-                    <td>Content</td>
-                    <td><span class="badge text-bg-warning">Pending</span></td>
-                    <td>Mar 18, 2026</td>
-                    <td class="text-end"><a class="btn btn-light btn-sm" href="user-details.html">View</a></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex align-items-center gap-2">
-                        <img class="avatar-img avatar-sm" src="{% static 'assets/images/avatar/avatar-4.jpg' %}" alt="Mina Torres">
-                        <div>
-                          <p class="fw-semibold mb-0">Mina Torres</p>
-                          <p class="text-muted small mb-0">mina@example.com</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>Viewer</td>
-                    <td>Finance</td>
-                    <td><span class="badge text-bg-secondary">Suspended</span></td>
-                    <td>Apr 07, 2026</td>
-                    <td class="text-end"><a class="btn btn-light btn-sm" href="user-details.html">View</a></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="d-flex align-items-center gap-2">
-                        <img class="avatar-img avatar-sm" src="{% static 'assets/images/avatar/avatar-5.jpg' %}" alt="Jon Oliver">
-                        <div>
-                          <p class="fw-semibold mb-0">Jon Oliver</p>
-                          <p class="text-muted small mb-0">jon@example.com</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>Analyst</td>
-                    <td>Data</td>
-                    <td><span class="badge text-bg-success">Active</span></td>
-                    <td>Apr 22, 2026</td>
-                    <td class="text-end"><a class="btn btn-light btn-sm" href="user-details.html">View</a></td>
-                  </tr>
-                </tbody>
-              </table>
+          </thead>
+          <tbody id="employeeTableBody">
+
+    {% for  leave in recent_leaves %}
+
+    <tr>
+
+        <!-- Serial Number -->
+        <td class="sn-column">
+            {{ forloop.counter }}
+        </td>
+
+        <!-- Employee Name -->
+        <td class="name-column">
+            <strong>{{ leave.employee }}</strong>
+        </td>
+
+        <!-- Leave Type -->
+        <td>
+            {{ leave.leave_type }}
+        </td>
+
+        <!-- From Date -->
+        <td>
+            {{ leave.from_date }}
+        </td>
+
+        <!-- To Date -->
+        <td>
+            {{ leave.to_date }}
+        </td>
+
+        <!-- Approve Status -->
+        <td>
+          {% if leave.status %}
+              <span class="badge bg-success">Approved</span>
+          {% else %}
+              <span class="badge bg-warning">Pending</span>
+          {% endif %}
+        </td>
+
+        <!-- Actions -->
+        <td class="text-end">
+
+            <a href="{% url 'approve_leave' leave.id %}" class="btn btn-sm btn-light">
+                Approve
+            </a>
+
+
+           
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</tbody>
+          </table>
             </div>
           </section>
         </div>

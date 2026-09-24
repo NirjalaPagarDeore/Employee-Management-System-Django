@@ -11,7 +11,7 @@
       </div>
 
       <nav class="sidebar-nav">
-        <a class="nav-link active" href="index.html" aria-current="page">
+        <a class="nav-link active" href="{% url 'dashboard' %}" aria-current="page">
           <span class="nav-icon"><i class="bi bi-speedometer2" aria-hidden="true"></i></span>
           <span class="nav-text">Dashboard</span>
         </a>
@@ -32,6 +32,7 @@
     <div class="dropdown-items">
 
         <a href="{% url 'add_employee' %}">
+     
             <i class="bi bi-person-plus"></i>
             Add Employee
         </a>
@@ -72,7 +73,7 @@
 
     </div>
 
-</div>
+        </div>
 
      
        <!-- Leave -->
@@ -80,7 +81,7 @@
 
     <a href="#" class="nav-link dropdown-toggle-custom">
         <span class="nav-icon">
-            <i class="bi bi-building"></i>
+            <i class="bi bi-calendar-x"></i>
         </span>
 
         <span class="nav-text">Apply Leave</span>
@@ -104,7 +105,40 @@
 
 </div>
 
+    <div class="sidebar-dropdown">
 
+    <a href="#" class="nav-link dropdown-toggle-custom">
+        <span class="nav-icon">
+            <i class="bi bi-building"></i>
+        </span>
+
+        <span class="nav-text">Attendance</span>
+
+        <i class="bi bi-chevron-down dropdown-arrow"></i>
+    </a>
+
+    <div class="dropdown-items">
+
+        <a href="{% url 'attendance_add' %}">
+            <i class="bi bi-calendar-check"></i>
+            Add Attendance
+        </a>
+
+        <a href="{% url 'attendance_list' %}">
+            <i class="bi bi-list"></i>
+            View Attendance
+        </a>
+
+    </div>
+
+        </div>
+
+    
+        
+         <a class="nav-link" href="{% url 'salary_calculation' %}">
+          <span class="nav-icon"><i class="bi bi-cash-stack" aria-hidden="true"></i></span>
+          <span class="nav-text">Salary</span>
+        </a>
 
         <a class="nav-link" href="users.html">
           <span class="nav-icon"><i class="bi bi-people" aria-hidden="true"></i></span>
